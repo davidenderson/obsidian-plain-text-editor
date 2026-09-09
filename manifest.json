@@ -1,0 +1,9 @@
+{
+	"id": "plain-text-editor",
+	"name": "Plain Text Editor",
+	"version": "0.1.0",
+	"minAppVersion": "1.13.0",
+	"description": "Edit .txt files in a minimal editor that keeps each file's line endings, offers optional line numbers, and follows your theme and monospace font.",
+	"author": "David Enderson",
+	"isDesktopOnly": false
+}

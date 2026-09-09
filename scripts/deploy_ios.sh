@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+# Copies the built plugin into an Obsidian vault so an iPad or iPhone picks it up.
+# Usage: npm run deploy:ios -- <vault name in iCloud Drive | full path to a vault>
+# The vault name can also come from the OBSIDIAN_IOS_VAULT environment variable.
+set -euo pipefail
+
+ICLOUD_OBSIDIAN_ROOT="$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents"
+PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+RELEASE_FILES=(main.js manifest.json styles.css)
+
+list_icloud_vaults() {
+	if [ -d "$ICLOUD_OBSIDIAN_ROOT" ]; then
+		echo "Vaults in iCloud Drive:"
+		find "$ICLOUD_OBSIDIAN_ROOT" -mindepth 1 -maxdepth 1 -type d -not -name '.*' -exec basename {} \; | sed 's/^/  /'
+	else
+		echo "No Obsidian folder found in iCloud Drive. Open Obsidian on the device and create a vault stored in iCloud first."
+	fi
+}
+
+resolve_vault_dir() {
+	local vault="$1"
+	case "$vault" in
+		*/*)
+			echo "$vault"
+			;;
+		*)
+			echo "$ICLOUD_OBSIDIAN_ROOT/$vault"
+			;;
+	esac
+}
+
+main() {
+	local vault="${1:-${OBSIDIAN_IOS_VAULT:-}}"
+	if [ -z "$vault" ]; then
+		echo "Usage: npm run deploy:ios -- <vault name or path>" >&2
+		list_icloud_vaults >&2
+		exit 1
+	fi
+
+	local vault_dir
+	vault_dir="$(resolve_vault_dir "$vault")"
+	if [ ! -d "$vault_dir" ]; then
+		echo "Vault not found: $vault_dir" >&2
+		list_icloud_vaults >&2
+		exit 1
+	fi
+
+	cd "$PROJECT_ROOT"
+	local plugin_id
+	plugin_id="$(node -p "JSON.parse(require('fs').readFileSync('manifest.json', 'utf8')).id")"
+	local release_file
+	for release_file in "${RELEASE_FILES[@]}"; do
+		if [ ! -f "$release_file" ]; then
+			echo "Missing $release_file. Run npm run build first." >&2
+			exit 1
+		fi
+	done
+
+	local target_dir="$vault_dir/.obsidian/plugins/$plugin_id"
+	mkdir -p "$target_dir"
+	cp "${RELEASE_FILES[@]}" "$target_dir/"
+	echo "Copied ${RELEASE_FILES[*]} to $target_dir"
+	echo "On the device: wait for iCloud to sync, then enable the plugin under Settings > Community plugins."
+}
+
+main "$@"

@@ -1,0 +1,111 @@
+/*
+ * Plain Text Editor. Every color, font, and size comes from Obsidian's CSS variables,
+ * so the editor follows the active theme, base color scheme, and font settings automatically.
+ * Selectors are scoped to this view so they never touch Obsidian's own editor.
+ */
+
+.workspace-leaf-content[data-type="plain-text-editor"] .view-content {
+	display: flex;
+	flex-direction: column;
+	padding: 0;
+	overflow: hidden;
+}
+
+.c-plain-text-editor__banner {
+	padding: 0.5rem var(--file-margins);
+	background-color: var(--background-modifier-error);
+	color: var(--text-on-accent);
+	font-size: var(--font-ui-small);
+}
+
+.c-plain-text-editor__editor {
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 auto;
+	min-height: 0;
+}
+
+/* Editor surface */
+.workspace-leaf-content[data-type="plain-text-editor"] .c-plain-text-editor__editor .cm-editor {
+	flex: 1 1 auto;
+	height: 100%;
+	background-color: var(--background-primary);
+	color: var(--text-normal);
+}
+
+.workspace-leaf-content[data-type="plain-text-editor"] .c-plain-text-editor__editor .cm-editor.cm-focused {
+	outline: none;
+}
+
+.workspace-leaf-content[data-type="plain-text-editor"] .c-plain-text-editor__editor .cm-scroller {
+	font-family: var(--font-monospace);
+	font-size: var(--font-text-size);
+	line-height: var(--line-height-normal);
+}
+
+.workspace-leaf-content[data-type="plain-text-editor"] .c-plain-text-editor__editor .cm-content {
+	padding: var(--file-margins);
+	caret-color: var(--caret-color);
+}
+
+.workspace-leaf-content[data-type="plain-text-editor"] .c-plain-text-editor__editor .cm-cursor,
+.workspace-leaf-content[data-type="plain-text-editor"] .c-plain-text-editor__editor .cm-dropCursor {
+	border-left-color: var(--caret-color);
+}
+
+.workspace-leaf-content[data-type="plain-text-editor"] .c-plain-text-editor__editor .cm-selectionBackground,
+.workspace-leaf-content[data-type="plain-text-editor"] .c-plain-text-editor__editor .cm-focused .cm-selectionBackground {
+	background-color: var(--text-selection);
+}
+
+.workspace-leaf-content[data-type="plain-text-editor"] .c-plain-text-editor__editor .cm-specialChar {
+	color: var(--text-error);
+}
+
+/* Line numbers, styled like Obsidian's own gutter */
+.workspace-leaf-content[data-type="plain-text-editor"] .c-plain-text-editor__editor .cm-gutters {
+	background-color: transparent;
+	color: var(--text-faint);
+	border-right: none;
+	font-size: var(--font-ui-smaller);
+	font-variant-numeric: tabular-nums;
+}
+
+.workspace-leaf-content[data-type="plain-text-editor"] .c-plain-text-editor__editor .cm-activeLineGutter {
+	background-color: transparent;
+	color: var(--text-muted);
+}
+
+/* Search panel */
+.workspace-leaf-content[data-type="plain-text-editor"] .c-plain-text-editor__editor .cm-panels {
+	background-color: var(--background-secondary);
+	color: var(--text-normal);
+	border-color: var(--background-modifier-border);
+}
+
+.workspace-leaf-content[data-type="plain-text-editor"] .c-plain-text-editor__editor .cm-panel.cm-search {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.25rem 0.5rem;
+	padding: 0.5rem var(--file-margins);
+	font-family: var(--font-interface);
+	font-size: var(--font-ui-small);
+}
+
+.workspace-leaf-content[data-type="plain-text-editor"] .c-plain-text-editor__editor .cm-panel.cm-search br {
+	display: none;
+}
+
+.workspace-leaf-content[data-type="plain-text-editor"] .c-plain-text-editor__editor .cm-searchMatch {
+	background-color: var(--text-highlight-bg);
+}
+
+.workspace-leaf-content[data-type="plain-text-editor"] .c-plain-text-editor__editor .cm-searchMatch-selected {
+	background-color: var(--text-highlight-bg-active);
+}
+
+/* Status bar indicator */
+.c-plain-text-editor-status {
+	cursor: pointer;
+}

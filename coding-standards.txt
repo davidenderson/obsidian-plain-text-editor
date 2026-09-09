@@ -1,0 +1,126 @@
+All applicable languages:
+
+Comments:
+
+ALWAYS keep a comment brief--one to two lines--unless it really, really needs to be longer! The only exception is the `tests` directories, which are managed by Claude Code. There it can write longer ones if it believes it needs them.
+
+
+Code style:
+
+Put each statement on its own line, and never collapse a control‑structure body onto its header line — even a single‑statement body gets its
+own line between the braces.
+// Wrong — body collapsed onto the header line:
+foreach ($aItems as $sItem) { $sOut .= $sItem; }
+
+// Right:
+foreach ($aItems as $sItem) {
+    $sOut .= $sItem;
+}
+Always use opening and closing curly braces for control-structure bodies, even when the body is a single statement.
+Always put the opening curly brace on the same line as the function or control structure it is associated with.
+Always indent nested elements with tab characters, never spaces, no matter the language or what the rest of the source file does.
+
+
+File naming:
+
+Always use dashes to separate the words in filenames. The exception is .sh files, which use underscores due to common convention. Converting all files to this convention is an ongoing process.
+
+
+HTML & CSS coding standard:
+
+Always use lowercase for HTML tags and attributes.
+Always use double quotes for html and css attribute values, unless the attribute has no value
+Always use semantic HTML5 elements where appropriate (e.g., <header>, <footer>, <article>, <section>, etc.).
+Always include the <!DOCTYPE html> declaration at the beginning of my HTML documents.
+Always use lowercase meaningful and descriptive names for classes and IDs, using hyphens to separate words. Some of the code has not yet been converted to this standard.
+Always use BEM (Block-Element-Modifier) syntax with an ITCSS namespace prefix when naming CSS classes. Prefix classes with "js-" if they are solely for javascript hooks.
+Always ensure my HTML is properly formatted and validated using a tool like the W3C Markup Validation Service.
+Always include alt attributes for all <img> tags to improve accessibility.
+Always use comments to explain the structure and purpose of complex sections of HTML code.
+Comments which surround a block that does a certain task always begin with <!-- BEGIN - Some description --> on one line and <!-- END - Some description --> on the final line.
+Avoid inline styles and prefer to use external CSS files for styling whenever it makes sense.
+Avoid using pixels when at all possible. Instead use relative units such as rem.
+Use variables whenever possible, and then use those variables whenever it makes sense, rather than copy/pasting the same number everywhere 
+
+
+JavaScript coding standard:
+
+Always use camelCase for variable and function names.
+Always use semicolons at the end of statements.
+Always use single quotes for string literals.
+When defining variables, use `const` or `let`, never `var`.
+For variable naming, always use Hungarian Notation with my own twist. Each variable starts with a lowercase letter denoting its type.
+Always name elements beginning with the lowercase letter e. For example, eSubmitButton = document.getElementById('submit-button');
+Always name integers starting with a lowercase i. Example: iUserAge = 25;
+Always name booleans starting with a lowercase b. Example: bUserLoggedIn = true;
+Always name strings starting with a lowercase s. Example: sUserName = 'JohnDoe';
+Always name arrays starting with a lowercase a. Example: aUserList = [];
+Always name callback functions starting with a lowercase fn. Example: fnUpdateApi
+Always name objects starting with a lowercase o, followed by a descriptive name in camelCase. Exceptions to this are "e" for Exceptions or DOM Elements and "ev" for Events.
+Prepend the lowercase letters listed above with 'g' if the variable is in global scope and meant to be used by other JavaScript files.
+It is fine to abbreviate a param to only its beginning lowercase letter, if it has limited scope. Example: array.forEach(function(e) {...});
+Place spaces on either side of operators (e.g., =, +, -, ===, etc.) for better readability.
+Use strict equality (===) and inequality (!==) operators instead of their loose counterparts (== and !=) whenever it makes sense to.
+
+
+PHP coding standard:
+
+IMPORTANT: Always use single quotes for string literals in PHP, except for SQL, which should be surrounded in double quotes so single quotes can be used for string values in the query.
+
+IMPORTANT: When writing PHP, never include spaces on either side of periods when doing string concatenation!
+Use my custom constants 'eol' and 'tab' when you want to display those characters.
+
+Files with the extension .php are never served directly. Only files with .html and .api are, and both are interpreted as PHP files by Apache2.
+
+PHP stand-alone functions are always named using all lowercase words separated with underscores. Class methods are named using camelCase.
+
+Functions which are only used inside a single file are prefixed with an underscore to indicate they are private to that file, but it is still ok for them to be called by tests. If that function is in a .php lib file inside u/lib/, it can also be called by the equivalently named .php lib file in libs/
+
+Methods which are only used inside their own object are prefixed with an underscore to indicate they are private or protected to that object, but it is still ok for them to be called by tests.
+
+For PHP variable naming, always use Hungarian Notation with my own twist. Each variable starts with a lowercase letter denoting its type:
+s = string
+a = array
+i = int
+b = bool
+f = float
+o = object
+e = enum
+q = string that is an SQL query
+c = callable
+m = mixed (used when the variable can be of multiple types or when the type is not clear)
+
+g = prepends a variable formed as indicated above, if it is a variable I use often and it comes from the global scope.
+
+Examples:
+$goDb is my global MariaDB database connection object.
+$gaBlogs is a globals of array of the blogs the currently signed-in user has rights to access.
+
+One exception is Throwable and Exception objects, which are always defined simply as $e, due to internet tradition.
+
+Global constants (using const) and defined constants (using define) are named in all uppercase letters with words separated by underscores. For example, MAX_USERS or DEFAULT_TIMEOUT. They are almost always located in a file ending in the word "-constants.php". Otherwise it is a const that ONLY applies to the code file it is in.
+
+Global constants prepended with "T_" are reserved for constants used in certain parts of the code because tests needed that special functionality. Example: T_USE_TEST_DB_COOKIE which is defined in common-constants.php.
+
+Global constants prepended with "TEST_" should only be defined in testing code inside the /var/www/dev.ourplace.blog/tests/ directory.
+
+I only consider wrapping a line of code if it gets close to 150-160 characters wide.
+
+I will sometimes wrap and indent complicated SQL queries.
+
+I like to use the function debug_log to display helpful output. It is controlled by the global constants DEBUG, DEBUG_IPS, and DEBUG_SERVICES which are always defined in server-constants.php and resolved using the global function is_debug_ip().
+
+Always put the curly brace on the same line as the function or control structure it is associated with, and always use opening and closing braces, even when there is only one line of code in the block.
+
+Always use prepared statements for SQL queries, and always use the custom convenience functions mariadb_execute_*, never use mysqli or the deprecated mysql extension.
+
+
+Bash (shell script) coding standard:
+
+Do NOT use Hungarian Notation in bash scripts (unlike PHP and JavaScript).
+
+Use UPPERCASE_WITH_UNDERSCORES for constants, exported variables, and environment variables. Examples: SITE_ROOT, RELEASE, SIGNING_KEY_ID.
+
+Use lowercase_with_underscores for function-local variables and other ordinary/temporary variables. Always declare function-scoped variables with the "local" keyword. Examples: local repo_dir, local tag.
+
+Keeping locals lowercase prevents them from colliding with or shadowing the shell's many UPPERCASE special and environment variables (PATH, HOME, IFS, PWD, REPLY, etc.).
