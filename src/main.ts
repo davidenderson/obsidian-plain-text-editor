@@ -3,7 +3,7 @@ import { PlainTextView } from './plain-text-view';
 import { DEFAULT_SETTINGS, parseExtensions, PlainTextSettings, PlainTextSettingTab } from './settings';
 import { createNewTextFile } from './new-file';
 import { LineEndingKind } from './line-endings';
-import { VIEW_TYPE } from './plugin-constants';
+import { VIEW_ICON, VIEW_TYPE } from './plugin-constants';
 
 export default class PlainTextPlugin extends Plugin {
 	settings: PlainTextSettings = { ...DEFAULT_SETTINGS };
@@ -17,7 +17,7 @@ export default class PlainTextPlugin extends Plugin {
 		this._registerCommands();
 		this._registerFileMenu();
 		this._registerStatusBar();
-		this.addRibbonIcon('file-plus', 'Create new text file', () => {
+		this.addRibbonIcon(VIEW_ICON, 'Create new text file', () => {
 			void createNewTextFile(this.app, null, this.getPrimaryExtension());
 		});
 	}
