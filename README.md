@@ -53,13 +53,19 @@ Develop in a separate vault, not your main one. Clone or symlink this folder int
 
 ### Testing on iPad and iPhone
 
-Create a vault stored in iCloud Drive from Obsidian on the device, then copy each build into it from the Mac:
+The plugin has to reach the device through a vault stored in iCloud Drive. Create that vault once, from the Mac:
 
 ```
-npm run deploy:ios -- "My iCloud Vault"
+npm run deploy:ios -- --create "Plugin Test"
 ```
 
-The argument is the vault's name in iCloud Drive, or a full path to any vault folder. It can also be set once with the `OBSIDIAN_IOS_VAULT` environment variable. Wait for iCloud to sync, then enable the plugin on the device under Settings, Community plugins. To see console errors on the device, connect it by USB and use Safari's Develop menu on the Mac (iOS 16.4 or later).
+Then copy each new build into it:
+
+```
+npm run deploy:ios -- "Plugin Test"
+```
+
+The argument is the vault's name in iCloud Drive, or a full path to any vault folder. It can also be set once with the `OBSIDIAN_IOS_VAULT` environment variable. Running the command with no argument lists the vaults it can see. Wait for iCloud to sync, open the vault on the device, and enable the plugin under Settings, Community plugins. To see console errors on the device, connect it by USB and use Safari's Develop menu on the Mac (iOS 16.4 or later).
 
 ## License
 
