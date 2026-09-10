@@ -1,0 +1,28 @@
+# Exclude macOS Finder (System Explorer) View States
+.DS_Store
+
+# vscode
+.vscode
+
+# Intellij
+*.iml
+.idea
+
+# npm
+node_modules
+
+# Don't include the compiled main.js file in the repo.
+# It is uploaded to GitHub releases instead.
+main.js
+
+# Exclude sourcemaps
+*.map
+
+# Obsidian
+data.json
+
+# Compiled tests
+tests/.build
+
+# Hot-reload marker for the dev vault
+.hotreload
