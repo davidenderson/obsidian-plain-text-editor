@@ -17,7 +17,7 @@ The editor is CodeMirror 6, the same editor Obsidian itself uses, so undo histor
 ## Usage
 
 - Open any `.txt` file from the file explorer, the quick switcher, or a `[[wikilink]]`.
-- Run **Create new text file** from the command palette, or right-click a folder and choose **New text file**.
+- Tap or click the **Create new text file** button. On desktop it is in the strip of icons on the left edge of the window; on mobile it is in the menu behind the button at the bottom-right corner. You can also right-click a folder and choose **New text file**, or run **Create new text file** from the command palette.
 - Press `Ctrl/Cmd+F` for search and replace, `Ctrl/Cmd+G` and `Ctrl/Cmd+Shift+G` for next and previous match. On mobile, run **Find and replace** from the command palette, or add it to the mobile toolbar.
 - The status bar shows the current file's line endings. Click it to convert. On mobile, use the **Convert line endings** commands instead.
 

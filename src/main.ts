@@ -17,6 +17,9 @@ export default class PlainTextPlugin extends Plugin {
 		this._registerCommands();
 		this._registerFileMenu();
 		this._registerStatusBar();
+		this.addRibbonIcon('file-plus', 'Create new text file', () => {
+			void createNewTextFile(this.app, null, this.getPrimaryExtension());
+		});
 	}
 
 	async onExternalSettingsChange(): Promise<void> {
