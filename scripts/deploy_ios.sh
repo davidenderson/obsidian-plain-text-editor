@@ -78,7 +78,7 @@ main() {
 
 	local target_dir="$vault_dir/.obsidian/plugins/$plugin_id"
 	mkdir -p "$target_dir"
-	cp "${RELEASE_FILES[@]}" "$target_dir/"
+	cp -X "${RELEASE_FILES[@]}" "$target_dir/"
 	echo "Copied ${RELEASE_FILES[*]} to $target_dir"
 	echo "On the device: wait for iCloud to sync, then enable the plugin under Settings > Community plugins."
 }

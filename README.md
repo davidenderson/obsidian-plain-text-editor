@@ -6,6 +6,7 @@ A minimal editor for `.txt` files inside Obsidian. No frills: it opens plain tex
 
 - **Line endings are preserved.** Each file keeps the line endings it already has (LF, CRLF, or CR). The setting only decides what new files get, and defaults to Unix (LF). Opening and closing a file never rewrites it.
 - **Convert when you want to.** Two commands, and a click on the status bar indicator, convert the current file to LF or CRLF.
+- **Turn notes into text files, and back.** Right-click a note and choose **Convert to plain text file** to rename it from `.md` to `.txt`. Right-click a text file and choose **Convert to markdown note** to go the other way. The contents are untouched, links to the file are updated, and the file reopens in the matching editor. Both are also commands.
 - **Optional line numbers.** Off by default; the toggle applies to open files immediately.
 - **Your monospace font.** The editor uses the monospace font from Settings, Appearance, Font, which falls back to whatever monospace font your platform has. No font is bundled.
 - **Follows your theme.** Colors, font size, and light or dark mode come from Obsidian's own CSS variables, so community themes and CSS snippets apply automatically.
@@ -19,6 +20,7 @@ The editor is CodeMirror 6, the same editor Obsidian itself uses, so undo histor
 - Open any `.txt` file from the file explorer, the quick switcher, or a `[[wikilink]]`.
 - Tap or click the **Create new text file** button. On desktop it is in the strip of icons on the left edge of the window; on mobile it is in the menu behind the button at the bottom-right corner. You can also right-click a folder and choose **New text file**, or run **Create new text file** from the command palette.
 - Press `Ctrl/Cmd+F` for search and replace, `Ctrl/Cmd+G` and `Ctrl/Cmd+Shift+G` for next and previous match. On mobile, run **Find and replace** from the command palette, or add it to the mobile toolbar.
+- To convert the open file, run **Convert note to plain text file (.txt)** or **Convert plain text file to markdown note (.md)** from the command palette, or right-click the file in the explorer or the tab's menu. If a file with the new name already exists, nothing is renamed and a notice explains why.
 - The status bar shows the current file's line endings. Click it to convert. On mobile, use the **Convert line endings** commands instead.
 
 ## Settings

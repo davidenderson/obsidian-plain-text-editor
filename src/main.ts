@@ -1,9 +1,21 @@
-import { Menu, Notice, Plugin, TAbstractFile, TFolder } from 'obsidian';
+import { Menu, Notice, Plugin, TAbstractFile, TFile, TFolder } from 'obsidian';
 import { PlainTextView } from './plain-text-view';
 import { DEFAULT_SETTINGS, parseExtensions, PlainTextSettings, PlainTextSettingTab } from './settings';
 import { createNewTextFile } from './new-file';
+import { changeFileExtension } from './change-extension';
 import { LineEndingKind } from './line-endings';
-import { VIEW_ICON, VIEW_TYPE } from './plugin-constants';
+import { MARKDOWN_EXTENSION, PLAIN_TEXT_EXTENSION, VIEW_ICON, VIEW_TYPE } from './plugin-constants';
+
+type ConversionTarget = typeof PLAIN_TEXT_EXTENSION | typeof MARKDOWN_EXTENSION;
+
+const CONVERT_LABELS: Record<ConversionTarget, string> = {
+	[PLAIN_TEXT_EXTENSION]: 'Convert to plain text file',
+	[MARKDOWN_EXTENSION]: 'Convert to markdown note',
+};
+const CONVERT_ICONS: Record<ConversionTarget, string> = {
+	[PLAIN_TEXT_EXTENSION]: VIEW_ICON,
+	[MARKDOWN_EXTENSION]: 'file-type',
+};
 
 export default class PlainTextPlugin extends Plugin {
 	settings: PlainTextSettings = { ...DEFAULT_SETTINGS };
@@ -110,6 +122,41 @@ export default class PlainTextPlugin extends Plugin {
 			name: 'Convert line endings to Windows (CRLF)',
 			checkCallback: (bChecking) => this._convertActiveView('crlf', bChecking),
 		});
+		this.addCommand({
+			id: 'convert-to-plain-text-file',
+			name: 'Convert note to plain text file (.txt)',
+			checkCallback: (bChecking) => this._convertActiveFile(PLAIN_TEXT_EXTENSION, bChecking),
+		});
+		this.addCommand({
+			id: 'convert-to-markdown-note',
+			name: 'Convert plain text file to markdown note (.md)',
+			checkCallback: (bChecking) => this._convertActiveFile(MARKDOWN_EXTENSION, bChecking),
+		});
+	}
+
+	// Notes convert to .txt; any file this plugin handles converts to .md; everything else is left alone.
+	private _conversionTargetFor(oFile: TAbstractFile): ConversionTarget | null {
+		if (!(oFile instanceof TFile)) {
+			return null;
+		}
+		if (oFile.extension === MARKDOWN_EXTENSION) {
+			return PLAIN_TEXT_EXTENSION;
+		}
+		if (this.getExtensions().includes(oFile.extension)) {
+			return MARKDOWN_EXTENSION;
+		}
+		return null;
+	}
+
+	private _convertActiveFile(sTarget: ConversionTarget, bChecking: boolean): boolean {
+		const oFile = this.app.workspace.getActiveFile();
+		if (oFile === null || this._conversionTargetFor(oFile) !== sTarget) {
+			return false;
+		}
+		if (!bChecking) {
+			void changeFileExtension(this.app, oFile, sTarget);
+		}
+		return true;
 	}
 
 	private _convertActiveView(sKind: LineEndingKind, bChecking: boolean): boolean {
@@ -125,14 +172,25 @@ export default class PlainTextPlugin extends Plugin {
 
 	private _registerFileMenu(): void {
 		this.registerEvent(this.app.workspace.on('file-menu', (oMenu: Menu, oFile: TAbstractFile) => {
-			if (!(oFile instanceof TFolder)) {
+			if (oFile instanceof TFolder) {
+				oMenu.addItem((oItem) => {
+					oItem.setTitle('New text file')
+						.setIcon('file-plus')
+						.onClick(() => {
+							void createNewTextFile(this.app, oFile, this.getPrimaryExtension());
+						});
+				});
+				return;
+			}
+			const sTarget = this._conversionTargetFor(oFile);
+			if (sTarget === null || !(oFile instanceof TFile)) {
 				return;
 			}
 			oMenu.addItem((oItem) => {
-				oItem.setTitle('New text file')
-					.setIcon('file-plus')
+				oItem.setTitle(CONVERT_LABELS[sTarget])
+					.setIcon(CONVERT_ICONS[sTarget])
 					.onClick(() => {
-						void createNewTextFile(this.app, oFile, this.getPrimaryExtension());
+						void changeFileExtension(this.app, oFile, sTarget);
 					});
 			});
 		}));

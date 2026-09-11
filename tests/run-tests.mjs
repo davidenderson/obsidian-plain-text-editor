@@ -19,6 +19,7 @@ await esbuild.build({
 	format: 'esm',
 	target: 'node20',
 	packages: 'external',
+	alias: { obsidian: './tests/stubs/obsidian.ts' },
 	outdir: sBuildDir,
 	logLevel: 'error',
 });

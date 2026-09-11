@@ -5,3 +5,5 @@ export const DEFAULT_EXTENSIONS = 'txt';
 export const NEW_FILE_BASENAME = 'Untitled';
 export const MAX_NEW_FILE_ATTEMPTS = 1000;
 export const READ_ONLY_MESSAGE = 'This file is not valid UTF-8 text, so it is opened read-only to avoid corrupting it.';
+export const MARKDOWN_EXTENSION = 'md';
+export const PLAIN_TEXT_EXTENSION = 'txt';

@@ -43,7 +43,7 @@ Avoid using pixels when at all possible. Instead use relative units such as rem.
 Use variables whenever possible, and then use those variables whenever it makes sense, rather than copy/pasting the same number everywhere 
 
 
-JavaScript coding standard:
+JavaScript & TypeScript coding standard:
 
 Always use camelCase for variable and function names.
 Always use semicolons at the end of statements.
