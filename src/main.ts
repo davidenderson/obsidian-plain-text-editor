@@ -134,7 +134,7 @@ export default class PlainTextPlugin extends Plugin {
 		});
 	}
 
-	// Notes convert to .txt; any file this plugin handles converts to .md; everything else is left alone.
+	// Notes convert to .txt, and any file this plugin handles converts to .md.
 	private _conversionTargetFor(oFile: TAbstractFile): ConversionTarget | null {
 		if (!(oFile instanceof TFile)) {
 			return null;

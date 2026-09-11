@@ -18,7 +18,7 @@ function _findLeavesShowing(oApp: App, oFile: TFile): WorkspaceLeaf[] {
 	return aLeaves;
 }
 
-// Renames oFile to sNewExtension without touching its contents, then reopens it so the matching editor takes over.
+// Renames oFile to sNewExtension, leaving its contents alone, then reopens it in the editor for that extension.
 export async function changeFileExtension(oApp: App, oFile: TFile, sNewExtension: string): Promise<void> {
 	if (oFile.extension === sNewExtension) {
 		return;

@@ -1,7 +1,7 @@
 /*
- * Plain Text Editor. Every color, font, and size comes from Obsidian's CSS variables,
- * so the editor follows the active theme, base color scheme, and font settings automatically.
- * Selectors are scoped to this view so they never touch Obsidian's own editor.
+ * Plain Text Editor. Colors, fonts, and sizes all come from Obsidian's CSS variables, so the
+ * editor follows whatever theme is active. Selectors are scoped to this view so they never
+ * touch Obsidian's own editor.
  */
 
 .workspace-leaf-content[data-type="plain-text-editor"] .view-content {

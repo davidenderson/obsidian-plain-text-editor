@@ -6,7 +6,7 @@ A minimal editor for `.txt` files inside Obsidian. No frills: it opens plain tex
 
 - **Line endings are preserved.** Each file keeps the line endings it already has (LF, CRLF, or CR). The setting only decides what new files get, and defaults to Unix (LF). Opening and closing a file never rewrites it.
 - **Convert when you want to.** Two commands, and a click on the status bar indicator, convert the current file to LF or CRLF.
-- **Turn notes into text files, and back.** Right-click a note and choose **Convert to plain text file** to rename it from `.md` to `.txt`. Right-click a text file and choose **Convert to markdown note** to go the other way. The contents are untouched, links to the file are updated, and the file reopens in the matching editor. Both are also commands.
+- **Turn notes into text files, and back.** Right-click a note and choose **Convert to plain text file** to rename it from `.md` to `.txt`. Right-click a text file and choose **Convert to markdown note** to go the other way. Only the extension changes. Links to the file are updated, and it reopens in the editor for its new type. Both are also commands.
 - **Optional line numbers.** Off by default; the toggle applies to open files immediately.
 - **Your monospace font.** The editor uses the monospace font from Settings, Appearance, Font, which falls back to whatever monospace font your platform has. No font is bundled.
 - **Follows your theme.** Colors, font size, and light or dark mode come from Obsidian's own CSS variables, so community themes and CSS snippets apply automatically.
