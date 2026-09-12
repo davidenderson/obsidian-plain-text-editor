@@ -1,6 +1,6 @@
 {
 	"name": "plain-text-editor",
-	"version": "0.1.0",
+	"version": "0.9.0",
 	"description": "Obsidian plugin that edits .txt files in a minimal editor which keeps each file's line endings.",
 	"main": "main.js",
 	"type": "module",
